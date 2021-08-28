@@ -1,16 +1,16 @@
+from db import models, schemas
 from fastapi import FastAPI
-from typing import Optional
-from pydantic import BaseModel
+from db.database import SessionLocal, engine
+from sqlalchemy.orm import Session
+
+models.Base.metadata.create_all(bind=engine) # create all sql tables (empty) if they don't exist
 
 app = FastAPI()
 
-db = []
 
-class Todo(BaseModel):
-    id: int
-    value: str
-    timestamp: int
-    status: bool
+#--- FROM HERE CODE NEEDS TO BE MODIFIED TO WORK WITH DATABASE
+
+db = []
 
 
 @app.get("/")
@@ -27,7 +27,7 @@ def get_todo_all():
 #Z Todo (model) določimo kakpne podatke pričakujemo | What to expect & how to handle it
 # preko todo dostopamo do vrednosti določene (shranjenje) v Todo
 @app.post("/add/todo")
-def create_todo(todo: Todo):
+def create_todo(todo: schemas.Todo):
     db.append(todo.dict())
     return db[-1] #last item in the db
 
