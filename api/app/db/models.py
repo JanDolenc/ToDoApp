@@ -12,4 +12,4 @@ class Todo(Base):
     value = Column(String(255))
     time_created = Column(TIMESTAMP)
     due_time = Column(TIMESTAMP)
-    status = Column(Boolean)
+    status = Column(Boolean, default=False)
