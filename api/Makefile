@@ -16,4 +16,3 @@ rebuild-fastapi:
 	$(MAKE) build-fastapi
 	$(MAKE) stop-fastapi
 	$(MAKE) start-fastapi
-	
