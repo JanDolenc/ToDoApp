@@ -1,1 +1,3 @@
 __pycache__
+# MySQL db folder for mounting into the container
+db_dev
