@@ -6,33 +6,13 @@ from pydantic import BaseModel
 
 class TodoCreate(BaseModel):
     value: str
-    time_created: int
-    #due_time: int
+    time_created: datetime
+    #due_time: datetime
 
 class Todo(TodoCreate):
-    id: int
-    value: str
-    time_created: datetime
-    
+    id: int    
     status: bool
 
 
     class Config:
         orm_mode = True
-
-
-
-
-
-#class Todo(BaseModel):
-#    id: int
-#    value: str
-#    time_created: int
-    #due_time: int
-#    status: bool
-
-#class TodoCreate(Todo):
-    #value: str
-    #time_created: int
-    #due_time: int
-   #status: bool

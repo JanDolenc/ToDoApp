@@ -21,24 +21,25 @@ def get_db():
 
 
 # Retrieve all records - on load
-@app.get("/todo/all", response_model=List[schemas.Todo])
-def get_todo_all(db: Session = Depends(get_db)):
-    return crud.get_todo_all_db(db=db)
+@app.get("/get/all/todos", response_model=List[schemas.Todo])
+def get_all_todos(db: Session = Depends(get_db)):
+    return crud.get_all_todos_db(db=db)
 
 
 # Enter new todo into the database
-@app.post("/add/todo", response_model=schemas.TodoCreate)
+@app.post("/add/todo", response_model=schemas.Todo)
 def create_todo(todo_create: schemas.TodoCreate, db: Session = Depends(get_db)): # function arguments | validate data | before this exec. check if we have connection to db
     return crud.create_todo_db(todo_create, db=db)
 
 
 # Mark todo as completed
-@app.post("/todo/completed/{compl_todo_id}")
+@app.post("/todo/completed/{compl_todo_id}", response_model=schemas.Todo)
 def make_todo_completed(compl_todo_id: int, db: Session = Depends(get_db)):
     return crud.make_todo_completed_db(compl_todo_id, db=db)
 
 
 # Delete todo from database    
-@app.delete("/delete/todo/{del_todo_id}")
+@app.delete("/delete/todo/{del_todo_id}", response_model=schemas.Todo)
 def delete_todo(del_todo_id: int, db: Session = Depends(get_db)):
     return crud.delete_todo_db(del_todo_id, db=db)
+    
