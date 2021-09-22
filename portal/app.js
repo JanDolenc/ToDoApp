@@ -1,3 +1,5 @@
+import { APIURL } from "./configDev.js";
+
 // Selectors
 const todoInput = document.querySelector(".todo-input");
 const todoButton = document.querySelector(".todo-button");
@@ -57,7 +59,7 @@ const AddNewTodoDb = async (value) => {
   const time_created = dateObject.toISOString().split(".")[0];
 
   const postData = { value, time_created };
-  const response = await fetch("http://127.0.0.1:8001/add/todo", {
+  const response = await fetch(APIURL.addTodo, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -104,21 +106,21 @@ function deleteCheck(e) {
 
 // Delete todo from db
 const deleteFromDb = async (del_todo_id) => {
-  fetch(`http://127.0.0.1:8001/delete/todo/${del_todo_id}`, {
+  fetch(`${APIURL.deleteTodo}${del_todo_id}`, {
     method: "DELETE",
   });
 };
 
 // Mark as completed in db
 const makeTodoCompletedDb = async (compl_todo_id) => {
-  fetch(`http://127.0.0.1:8001/todo/completed/${compl_todo_id}`, {
+  fetch(`${APIURL.todoCompleted}${compl_todo_id}`, {
     method: "POST",
   });
 };
 
 // Retrive all todos from db
 const getTodos = async () => {
-  const response = await fetch("http://127.0.0.1:8001/get/all/todos");
+  const response = await fetch(APIURL.getAllTodos);
   const data = await response.json();
 
   return data;
