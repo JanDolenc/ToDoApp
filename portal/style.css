@@ -139,3 +139,44 @@ select {
   background: white;
   color: #ff6f47;
 }
+
+/* Error messages */
+.message-container {
+  display: flex;
+  justify-content: center;
+}
+
+.message-box {
+  background-color: white;
+  color: #ff2828;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1.2rem;
+  text-align: center;
+  position: fixed;
+  min-width: 280px;
+  max-width: 530px;
+  bottom: 4%;
+  padding: 1rem 0.7rem 1.3rem;
+  margin: 0 0.5rem;
+}
+
+.message-text {
+  margin-top: 0.5rem;
+}
+
+/* Animation error message */
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(10rem);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.pop-up {
+  animation: fade-in 0.3s ease;
+}

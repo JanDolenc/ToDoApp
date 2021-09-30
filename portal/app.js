@@ -5,6 +5,7 @@ const todoInput = document.querySelector(".todo-input");
 const todoButton = document.querySelector(".todo-button");
 const todoList = document.querySelector(".todo-list");
 const filterOption = document.querySelector(".filter-todo");
+const messageBox = document.querySelector(".message-box");
 
 // Event listeners
 document.addEventListener("DOMContentLoaded", printAllTodos);
@@ -51,6 +52,7 @@ function addTodo(event) {
     })
     .catch((err) => {
       console.error("Error with fetch add todo:", err);
+      errorMessage("Your todo can't be added to the database.");
     });
 }
 
@@ -88,6 +90,7 @@ function deleteCheck(e) {
       })
       .catch((err) => {
         console.error("Error with fetch delete todo:", err);
+        errorMessage("We have trouble deleting todo from the database.");
       });
   }
 
@@ -100,20 +103,21 @@ function deleteCheck(e) {
       })
       .catch((err) => {
         console.error("Error with fetch completed todo:", err);
+        errorMessage("Todo can't be marked as completed.");
       });
   }
 }
 
 // Delete todo from db
 const deleteFromDb = async (del_todo_id) => {
-  fetch(`${APIURL.deleteTodo}${del_todo_id}`, {
+  await fetch(`${APIURL.deleteTodo}${del_todo_id}`, {
     method: "DELETE",
   });
 };
 
 // Mark as completed in db
 const makeTodoCompletedDb = async (compl_todo_id) => {
-  fetch(`${APIURL.todoCompleted}${compl_todo_id}`, {
+  await fetch(`${APIURL.todoCompleted}${compl_todo_id}`, {
     method: "POST",
   });
 };
@@ -163,6 +167,7 @@ function printAllTodos() {
     })
     .catch((err) => {
       console.error("Error with fetch get all todos:", err);
+      errorMessage("Can’t connect to the database.");
     });
 }
 
@@ -194,4 +199,27 @@ function filterTodo(e) {
         break;
     }
   });
+}
+
+// Display errors (while connecting to db)
+let messageText;
+function errorMessage(customMsg) {
+  // Is error shown for the first time?
+  if (messageText != undefined) {
+    messageText.remove();
+  }
+  // Create message div | add text | unhide and animate | add to html
+  messageText = document.createElement("div");
+  messageText.classList.add("message-text");
+
+  messageText.innerHTML = `<b>Oops,</b> someting went wrong. <u>${customMsg}</u> Please, <strong>refresh the page</strong> and try again.`;
+
+  messageBox.removeAttribute("hidden");
+  messageBox.classList.toggle("pop-up");
+  messageBox.appendChild(messageText);
+
+  // Remove the class with the animation
+  setTimeout(function () {
+    messageBox.classList.toggle("pop-up");
+  }, 450);
 }
