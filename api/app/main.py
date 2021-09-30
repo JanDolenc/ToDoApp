@@ -1,6 +1,7 @@
 from db import models, schemas, crud
 from typing import List
 from fastapi import FastAPI, Depends
+from fastapi.middleware.cors import CORSMiddleware
 from db.database import SessionLocal, engine
 from sqlalchemy.orm import Session
 
@@ -10,6 +11,18 @@ models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
+origins = [
+    "http://localhost",
+    "http://localhost:8001",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Dependency - chechk if we have connection
 def get_db():
