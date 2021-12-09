@@ -1,0 +1,38 @@
+version: "3.8"
+
+services:
+  portal:
+    image: nginx-image
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - api
+
+  api:
+    image: fastapi-image
+    restart: always
+    ports:
+      - "8001:80"
+    networks:
+      - mysql-net
+    depends_on:
+      - database
+
+  database:
+    image: mysql-image
+    environment:
+      - MYSQL_ROOT_PASSWORD=root_password
+    volumes:
+      - db-data:/var/lib/mysql
+    restart: always
+    ports:
+      - "3306:3306"
+    networks:
+      - mysql-net
+
+networks:
+  mysql-net:
+
+volumes:
+  db-data:
