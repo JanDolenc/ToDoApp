@@ -10,8 +10,9 @@ know the concepts and tools used in back-end development.
 * **I built REST API for querying and writing to the database.**  API was built using the FastAPI framework.
 * **I containerized the app.** The app is running in Docker containers.
 
-### Live demo
-I deploy the app in the production environment. It is available at [todoapp.tech](http://todoapp.tech/) . The deployment process was pretty easy thanks to Docker containers.
+## How does it look like?
+![image](https://user-images.githubusercontent.com/23385863/195825584-4ae8d6d8-eafd-4fef-b2f6-54b97f0b2c04.png)
+
 
 
 ## How do I want to improve the to-do app?
